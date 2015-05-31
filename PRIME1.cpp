@@ -25,7 +25,7 @@ void makemyprimes()
 void makeprimes(long long int l,long long int u)
 {
 	int i,j;
-	for (i = 0; i < 1000000; ++i)
+	for (i = 0; i < 100000; ++i)
 	{
 		rangeAns.push_back(1);
 	}
@@ -73,7 +73,7 @@ int main(void)
 	int t,i;
 	//cin>>t;
 	scanf("%d",&t);
-	for (i = 0; i < 46342; ++i)
+	for (i = 0; i < 100000; ++i)
 	{
 		primeArray.push_back(1);
 	}

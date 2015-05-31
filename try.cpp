@@ -1,7 +1,8 @@
 #include <iostream>
+#include <math.h>
 
 int main(int argc, char const *argv[])
 {
-	std::cout<<0%3;
+	std::cout<<sqrt(2147483647);
 	return 0;
 }
