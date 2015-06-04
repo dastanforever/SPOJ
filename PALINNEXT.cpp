@@ -6,29 +6,43 @@
 using namespace std;
 
 string st;
-vector < int > vec;
+vector < int > vec1,vec2;
 
 void intovec();
 int checkallnine();
 void addinmiddle();
 void makepalin();
 void printfromvec(int );
+int checkbig();
 
 void intovec()
 {
 	int i;
 	for (i = 0; i < st.size(); ++i)
 	{
-		vec.push_back((int)st[i] - 48);
+		vec1.push_back((int)st[i] - 48);
+	}
+}
+
+// Returns 0 if both equal;
+// Returns 1 if vec1 big;
+// Returns 2 if vec2 big;
+
+int checkbig(int n)
+{
+	int i;
+	for (i = 0; i < vec1.size(); ++i)
+	{
+		
 	}
 }
 
 int checkallnine()
 {
 	int flag = 1,i;
-	for (i = 0; i < vec.size(); ++i)
+	for (i = 0; i < vec1.size(); ++i)
 	{
-		if (vec[i] != 9)
+		if (vec1[i] != 9)
 		{
 			flag = 0;
 			break;
@@ -45,12 +59,12 @@ void addinmiddle()
 	{
 		for (i = st.size()/2 - 1; i >= 0; --i)
 		{
-			vec[i] += carry + flag;
-			if (vec[i] > 9)
+			vec1[i] += carry + flag;
+			if (vec1[i] > 9)
 			{
-				carry = vec[i] % 10;
+				carry = vec1[i] % 10;
 			}
-			vec[i] = vec[i] - (carry*10);
+			vec1[i] = vec1[i] - (carry*10);
 			flag = 0;
 		}
 	}
@@ -58,12 +72,12 @@ void addinmiddle()
 	{
 		for (i = (int)(st.size()/2); i >= 0; --i)
 		{
-			vec[i] += carry + flag;
-			if (vec[i] > 9)
+			vec1[i] += carry + flag;
+			if (vec1[i] > 9)
 			{
-				carry = vec[i] % 10;
+				carry = vec1[i] % 10;
 			}
-			vec[i] = vec[i] - (carry*10);
+			vec1[i] = vec1[i] - (carry*10);
 			flag = 0;
 		}
 	}
@@ -82,25 +96,7 @@ void makepalin()
 		printfromvec(1);
 		return;
 	}
-	i = ((int)st.size()/2) - 1;
-	if (st.size() % 2 == 0)
-		j = st.size()/2;
-	else
-		j = ((int)st.size()/2) + 1;
-	while(i >= 0 && j < st.size())
-	{
-		if (vec[i] != vec[j])
-		{
-			break;
-		}
-		i--;j++;
-	}
-	if ((i > -1 && vec[i] < vec[j]) || i == -1)
-	{
-		addinmiddle();
-	}
-	printfromvec(2);
-	printfromvec(3);
+
 }
 
 void printfromvec(int flag)
@@ -121,38 +117,7 @@ void printfromvec(int flag)
 	}
 	if (flag == 2)
 	{
-		if(st.size()%2 == 0)
-		{
-			for (i = 0; i <= st.size()/2 - 1; ++i)
-			{
-				printf("%c",(char)(vec[i] + 48));
-			}
-		}
-		else
-		{
-			for (i = 0; i <= (int)st.size()/2; ++i)
-			{
-				printf("%c",(char)(vec[i] + 48));
-			}
-		}
-		return;
-	}
-	if (flag == 3)
-	{
-		if (st.size()%2 == 0)
-		{
-			for (i = st.size()/2-1; i >= 0; --i)
-			{
-				printf("%c",(char)(vec[i] + 48));
-			}
-		}
-		else
-		{
-			for (i = ((int)st.size()/2) - 1; i >= 0; --i)
-			{
-				printf("%c",(char)(vec[i] + 48));
-			}
-		}
+		
 	}
 	printf("\n");
 }
@@ -163,7 +128,8 @@ int main(void)
 	scanf("%lld",&t);
 	while(t--)
 	{
-		vec.clear();
+		vec1.clear();
+		vec2.clear();
 		cin>>st;
 		intovec();
 		makepalin();
