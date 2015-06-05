@@ -1,123 +1,45 @@
-#include <stdio.h>
+#include <cstdio>
 #include <iostream>
-#include <string>
+#include <limits>
 
 using namespace std;
 
 string message;
-int t,startpos1,startpos2,startpos3;
-
-void printres(int ch, int num1, int num2)
-{
-	if (ch == 1)
-	{
-		for (i = 0; i < startpos3; ++i)
-		{
-			printf("%c", message[i]);
-		}
-		printf(" %d\n",num1+num2);
-	}
-	if (ch == 2)
-	{
-		printf("%d ",num2 - num1);
-		for (i = startpos2; i < message.size(); ++i)
-		{
-			printf("%c",message[i]);
-		}
-		printf("\n");
-	}
-	if (ch == 3)
-	{
-		for (int i = 0; i < startpos2; ++i)
-		{
-			/* code */
-		}
-	}
-}
-
 
 int main(void)
 {
-	int i = 0,num1 = 0, num2 = 0;
+	int t,a,b,c,i;
 	scanf("%d",&t);
+	cin.ignore (std::numeric_limits<std::streamsize>::max(), '\n'); 
 	while(t--)
 	{
-		cin>>message;
-		startpos1 = message.find("machula");
-		startpos2 = message.find("+");
-		startpos3 = message.find("=");
-		i = 0;
-		num1 = 0;
-		num2 = 0;
-		if (startpos3 < startpos1)
+		getline(cin,message);
+		while(message.length() < 3)
+		getline(cin,message);
+		int it = 0;
+		for (i = 0;message[i] !='m' && i < message.length(); ++i)
 		{
-			// after '='
-			// Add the nums.
-			// print upto '='.
-			// then result.
-
-
-			while(message[i] != '=' && i < message.size())
+			if (message[i] == '+' || message[i] == '=')
 			{
-				while(message[i] != ' ')
-				{
-					num1 = (num1*10) + ((int)message[i] - 48);
-					i++;
-				}
-				i += 3;
-				while(message[i] != ' ')
-				{
-					num2 = (num2*10) + ((int)message[i] - 48);
-					i++;
-				}
-				printres(1,num1,num2);
-				i++;
+				it++;
 			}
-
+		}
+		if (it == 0)
+		{
+			sscanf(message.c_str(),"%*s + %d = %d", &b,&c);
+			a = c - b;
+		}
+		else if (it == 1)
+		{
+			sscanf(message.c_str(),"%d + %*s = %d",&a,&c);
+			b = c - a;
 		}
 		else
 		{
-			if (startpos1 < startpos2)
-			{
-				// Before '+'
-				// Subtract the after '+'
-				// from after '='.
-				// print from +.
-				i = startpos2 + 2;
-				while(message[i] != ' ' && i < message.size())
-				{
-					num1 = (num1*10) + ((int)message[i] - 48);
-					i++;
-				}
-				i += 3;
-				while(message[i] != ' ' && i < message.size())
-				{
-					num2 = (num2*10) + ((int)message[i] - 48);
-					i++;
-				}
-				printres(2,num1,num2);
-			}
-			else
-			{
-				// Between + and '='
-				// print upto '+'
-				// print result.
-				// print after =.
-				i = 0;
-				while(message[i] != ' ' && i < startpos2)
-				{
-					num1 = (num1 * 10) + ((int)message[i]-48);
-					i++;
-				}
-				i = startpos3+2;
-				while(i < message.size())
-				{
-					num2 = (num2 * 10) + ((int)message[i]-48);
-					i++;
-				}
-				printres(3,num1,num2);
-			}
+			sscanf(message.c_str(),"%d + %d = %*s",&a,&b);
+			c = a + b;
 		}
+		printf("%d + %d = %d\n",a,b,c);
 	}
 	return 0;
 }
