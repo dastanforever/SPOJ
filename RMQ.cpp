@@ -22,7 +22,7 @@ struct SegmentTreeNode
 		node.assigninitialvalues();
 		//	The OPeration to make the
 		//	Statistic into order.
-		node.property = node1.property + node2.property;
+		node.property = node1.property < node2.property ? node1.property : node2.property;
 		return node;
 	}
 
@@ -32,7 +32,7 @@ struct SegmentTreeNode
 		node.assigninitialvalues();
 		//	The OPeration to make the
 		//	Statistic into order.
-		node.property = node1.property + node2.property;
+		node.property = node1.property < node2.property ? node1.property : node2.property;
 		return node;
 	}
 
@@ -148,25 +148,30 @@ public:
 	}
 };
 
-// 1 based indexing.
-
-
 int main(void)
 {
-	int i;
+	
+	//freopen("input.txt","r",stdin);
+	//freopen("output.txt","w",stdout);
+	
+	
+	int i,l,r,N,ele,Q;
 	vector < int > data;
 	data.push_back(-1);
-	for (i = 1; i <= 10; ++i)
+	scanf("%d",&N);
+	for (i = 1; i <= N; ++i)
 	{
-		data.push_back(i);
+		scanf("%d",&ele);
+		data.push_back(ele);
 	}
 	SegmentTree < int, int > tree;
 	tree.initializebysize(data.size()-1);
 	tree.MakeTree(data,1,data.size()-1);
-	tree.printdata();
-	cout<<endl;
-	tree.printquery(4,9,data.size()-1);
-	tree.Update(5,1,data.size()-1,1,10);
-	tree.printdata();
+	scanf("%d",&Q);
+	for(i = 0; i < Q; ++i)
+		{
+			scanf("%d%d",&l,&r);
+			tree.printquery(++l,++r,data.size()-1);
+		}
 	return 0;
 }
